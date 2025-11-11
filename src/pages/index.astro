@@ -21,6 +21,7 @@ const getData = async () => {
 const data = await getData();
 const contentEditio = data?.data.custom_editor_one;
 
+
 // console.log("getDataaaaa", data.data.custom_editor_one);
 ---
 
@@ -50,7 +51,7 @@ const contentEditio = data?.data.custom_editor_one;
 
 		<section
 			class="banner-section home"
-			style={`background-image: url(${data.data.banner_image.formats.large.url})`}
+			style={`background-image: url(${data.data.banner_image.formats.medium.url})`}
 		>
 			<div class="container">
 				<div class="banner-content">
