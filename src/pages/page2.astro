@@ -1,0 +1,411 @@
+---
+// src/layouts/BlogPost.astro
+import BaseHead from "../components/BaseHead.astro";
+import "../styles/global.css";
+const { title, description, pubDate, heroImage } = Astro.props;
+import {BASE_URL} from "../consts"
+const getData = async () => {
+	try {
+		const res = await fetch(`${BASE_URL}/api/page-2?populate=*`);
+		// const res = await fetch(
+		// 	"http://localhost:1337/api/page-2?populate=*",
+		// );
+		const json = await res.json();
+		return json;
+	} catch (error) {
+		// console.error("Error fetching data:", error);
+		return null;
+	}
+};
+const data = await getData();
+const main_editor = data?.data.main_editor;
+---
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{title}</title>
+           <title>Radiogoldinformation page-2</title>
+        <meta name="description" content="Radiogoldinformation Radiogoldinformation" />
+        <BaseHead  />
+    </head>
+    <body>
+        <section
+            class="content-section"
+            style="background-color: #f3f5f8; padding-top: 10px;"
+            data-aos="fade-up"
+        >
+            <div class="container">
+                <div class="editor-data">
+					<!-- {data.data.about_editior} -->
+						{
+							data.data.main_eiditor.map((item, i) => {
+								const baseUrl =
+									(typeof process !== "undefined" &&
+										process.env &&
+										process.env.NEXT_PUBLIC_API_URL) ||
+									"http://localhost:1337";
+
+								const buildImageSrc = (imgObj) => {
+									if (!imgObj) return null;
+									const formats = imgObj.formats || {};
+									const pick =
+										(formats.small && formats.small.url) ||
+										(formats.medium &&
+											formats.medium.url) ||
+										(formats.thumbnail &&
+											formats.thumbnail.url) ||
+										imgObj.url;
+									if (!pick) return null;
+									if (/^https?:\/\//i.test(pick)) return pick;
+									if (pick.startsWith("/"))
+										return `${baseUrl.replace(/\/$/, "")}${pick}`;
+									return `${baseUrl.replace(/\/$/, "")}/${pick}`;
+								};
+
+								// --- Headings h1-h6 ---
+								if (item.type === "heading") {
+									const Tag = `h${Math.min(Math.max(item.level, 1), 6)}`;
+									return item.children.map((content, j) => (
+										<Tag key={`${i}-heading-${j}`}>
+											{content.text}
+										</Tag>
+									));
+								}
+
+								// --- Paragraphs with inline formatting + links ---
+								if (item.type === "paragraph") {
+									return (
+										<p key={`para-${i}`}>
+											{item.children.map((content, j) => {
+												let text = <>{content.text}</>;
+
+												if (content.bold)
+													text = (
+														<strong>{text}</strong>
+													);
+												if (content.italic)
+													text = <em>{text}</em>;
+												if (content.underline)
+													text = <u>{text}</u>;
+
+												if (
+													content.type === "link" ||
+													content.url ||
+													content.href
+												) {
+													const href =
+														content.url ||
+														content.href ||
+														"#";
+													const target =
+														content.target ||
+														(href.startsWith("http")
+															? "_blank"
+															: undefined);
+													const children = (
+														content.children || []
+													).map((c, k) => (
+														<span
+															key={`link-${i}-${j}-${k}`}
+														>
+															{c.text}
+														</span>
+													));
+													text = (
+														<a
+															href={href}
+															target={target}
+															rel={
+																target ===
+																"_blank"
+																	? "noopener noreferrer"
+																	: undefined
+															}
+														>
+															{children.length
+																? children
+																: text}
+														</a>
+													);
+												}
+
+												return (
+													<span
+														key={`${i}-inline-${j}`}
+													>
+														{text}
+													</span>
+												);
+											})}
+										</p>
+									);
+								}
+
+								// --- Image block (Strapi style) ---
+								if (item.type === "image") {
+									// Support both shapes: { type: "image", image: { ... } } or { type: "image", url: "...", formats: {...}, ... }
+									const imgObj = item.image || item;
+									const src = buildImageSrc(imgObj);
+									const alt =
+										imgObj?.alternativeText ||
+										imgObj?.caption ||
+										"image";
+									const caption = imgObj?.caption;
+
+									return (
+										<figure
+											key={`img-${i}`}
+											style={{ margin: "1rem 0" }}
+										>
+											{src ? (
+												<img
+													src={src}
+													alt={alt}
+													width={imgObj?.width}
+													height={imgObj?.height}
+													style={{
+														maxWidth: "100%",
+														height: "auto",
+														display: "block",
+													}}
+												/>
+											) : (
+												<div
+													style={{
+														padding: "1rem",
+														background: "#f4f4f4",
+													}}
+												>
+													Image unavailable
+												</div>
+											)}
+											{caption && (
+												<figcaption
+													style={{
+														fontSize: "0.9rem",
+														color: "#666",
+													}}
+												>
+													{caption}
+												</figcaption>
+											)}
+										</figure>
+									);
+								}
+
+								// --- Lists (ordered & unordered) ---
+								if (item.type === "list") {
+									const ListTag =
+										item.format === "ordered" ? "ol" : "ul";
+									return (
+										<ListTag key={`list-${i}`}>
+											{(item.children || []).map(
+												(li, j) => (
+													<li key={`${i}-li-${j}`}>
+														{(
+															li.children || []
+														).map((c, k) => {
+															let text = (
+																<>{c.text}</>
+															);
+															if (c.bold)
+																text = (
+																	<strong>
+																		{text}
+																	</strong>
+																);
+															if (c.italic)
+																text = (
+																	<em>
+																		{text}
+																	</em>
+																);
+															if (c.underline)
+																text = (
+																	<u>
+																		{text}
+																	</u>
+																);
+															return (
+																<span
+																	key={`li-${i}-${j}-${k}`}
+																>
+																	{text}
+																</span>
+															);
+														})}
+													</li>
+												),
+											)}
+										</ListTag>
+									);
+								}
+
+								// --- Fallback ---
+								return null;
+							})
+						}
+				</div>
+               
+              
+                
+            </div>
+        </section>
+
+        <!-- <div class="sec-gapping">
+        <img src="sec-gap.webp" alt="forest" data-aos="fade-up">
+    </div> -->
+
+        <section class="content-section mb-190" data-aos="fade-up">
+            <div class="container">
+                <div class="full-box">
+                    {
+							data.data.botto_editor.map((item, i) => {
+								// --- Headings h1-h6 ---
+								if (item.type === "heading") {
+									const Tag = `h${Math.min(Math.max(item.level, 1), 6)}`;
+									return item.children.map((content, j) => (
+										<Tag key={`${i}-${j}`}>
+											{content.text}
+										</Tag>
+									));
+								}
+
+								// --- Paragraphs with inline formatting + links ---
+								if (item.type === "paragraph") {
+									return (
+										<p key={i}>
+											{item.children.map((content, j) => {
+												let text = <>{content.text}</>;
+
+												if (content.bold)
+													text = (
+														<strong>{text}</strong>
+													);
+												if (content.italic)
+													text = <em>{text}</em>;
+												if (content.underline)
+													text = <u>{text}</u>;
+
+												if (
+													content.type === "link" ||
+													content.url ||
+													content.href
+												) {
+													const href =
+														content.url ||
+														content.href ||
+														"#";
+													const target =
+														content.target ||
+														(href.startsWith("http")
+															? "_blank"
+															: undefined);
+													const children = (
+														content.children || []
+													).map((c, k) => (
+														<span key={k}>
+															{c.text}
+														</span>
+													));
+													text = (
+														<a
+															href={href}
+															target={target}
+															rel={
+																target ===
+																"_blank"
+																	? "noopener noreferrer"
+																	: undefined
+															}
+														>
+															{children.length
+																? children
+																: text}
+														</a>
+													);
+												}
+
+												return (
+													<span key={`${i}-${j}`}>
+														{text}
+													</span>
+												);
+											})}
+										</p>
+									);
+								}
+
+								// --- Lists (ordered & unordered) ---
+								if (item.type === "list") {
+									const ListTag =
+										item.format === "ordered" ? "ol" : "ul";
+									return (
+										<ListTag key={i}>
+											{(item.children || []).map(
+												(li, j) => (
+													<li key={`${i}-${j}`}>
+														{(
+															li.children || []
+														).map((c, k) => {
+															let text = (
+																<>{c.text}</>
+															);
+															if (c.bold)
+																text = (
+																	<strong>
+																		{text}
+																	</strong>
+																);
+															if (c.italic)
+																text = (
+																	<em>
+																		{text}
+																	</em>
+																);
+															if (c.underline)
+																text = (
+																	<u>
+																		{text}
+																	</u>
+																);
+															return (
+																<span key={k}>
+																	{text}
+																</span>
+															);
+														})}
+													</li>
+												),
+											)}
+										</ListTag>
+									);
+								}
+
+								// --- Fallback ---
+								return null;
+							})
+						}
+                </div>
+            </div>
+        </section>
+        <a
+            href="https://otrsite.com/radiolog/index.html"
+            target="_blank"
+            id="myBtn"
+            title="Scroll Up"
+            class="text-capitalize"
+            style="bottom: 130px;">Enter Jerry’s vintage Radio logs</a
+        >
+
+        <!-- Go To Top Button -->
+        <a href="/page3" id="myBtn" title="Scroll Up" style="bottom: 40px;"
+            >Continue</a
+        >
+        <main>
+            <slot />
+        </main>
+    </body>
+</html>

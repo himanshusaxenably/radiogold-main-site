@@ -1,0 +1,71 @@
+---
+// src/layouts/BlogPost.astro
+import BaseHead from "../components/BaseHead.astro";
+import "../styles/global.css";
+const { title, description, pubDate, heroImage } = Astro.props;
+---
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+           <title>Radiogoldinformation page-5</title>
+        <meta name="description" content="Radiogoldinformation Radiogoldinformation" />
+        <BaseHead />
+    </head>
+    <body>
+        <section class="content-section">
+            <div class="container">
+                <div class="full-box mb-5">
+                    <h4 class="content-heading">
+                        How To Do Radio Research The Correct Way:
+                    </h4>
+                    <p>
+                        An introduction to Golden Age Radio History research and
+                        some observations with respect to the quality of
+                        research--or lack thereof- of Radio programs that have
+                        been documented during the past seventy-five years.
+                    </p>
+
+                    <a
+                        href="https://web.archive.org/web/20160329235257/http:/digitaldeliftp.com/digitaldelitoo/dd2-Research-Intro.html"
+                        target="_blank"
+                        class="button-main">Enter Intro</a
+                    >
+                </div>
+                <div class="full-box mb-5">
+                    <h4 class="content-heading">
+                        Radio Program Histories In Depth From A To Z:
+                    </h4>
+                    <p>
+                        We start every program log with a clean sheet of paper
+                        before us. We perform our own, independent research into
+                        every program.
+                    </p>
+                    <a
+                        href="https://web.archive.org/web/20160329235257/http:/digitaldeliftp.com/digitaldelitoo/dd2-Research-Articles.html"
+                        class="button-main"
+                        target="_blank">Enter Articles</a
+                    >
+                </div>
+                <div class="full-box mb-5">
+                    <h4 class="content-heading">
+                        Radio Performer Careers In Depth:
+                    </h4>
+                    <p>
+                        A collection of career portraits of some of the best
+                        remembered performers to step up to a radio microphone.
+                    </p>
+                    <a
+                        href="https://web.archive.org/web/20160329235257/http:/digitaldeliftp.com/digitaldelitoo/dd2-Research-GAR-Bios.html"
+                        class="button-main"
+                        target="_blank">Enter Bios</a
+                    >
+                </div>
+            </div>
+        </section>
+        <main>
+            <slot />
+        </main>
+    </body>
+</html>
