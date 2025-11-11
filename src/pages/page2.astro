@@ -7,13 +7,9 @@ import {BASE_URL} from "../consts"
 const getData = async () => {
 	try {
 		const res = await fetch(`${BASE_URL}/api/page-2?populate=*`);
-		// const res = await fetch(
-		// 	"http://localhost:1337/api/page-2?populate=*",
-		// );
 		const json = await res.json();
 		return json;
 	} catch (error) {
-		// console.error("Error fetching data:", error);
 		return null;
 	}
 };
@@ -38,7 +34,6 @@ const main_editor = data?.data.main_editor;
         >
             <div class="container">
                 <div class="editor-data">
-					<!-- {data.data.about_editior} -->
 						{
 							data.data.main_eiditor.map((item, i) => {
 								const baseUrl =
@@ -74,7 +69,6 @@ const main_editor = data?.data.main_editor;
 									));
 								}
 
-								// --- Paragraphs with inline formatting + links ---
 								if (item.type === "paragraph") {
 									return (
 										<p key={`para-${i}`}>
@@ -338,7 +332,6 @@ const main_editor = data?.data.main_editor;
 									);
 								}
 
-								// --- Lists (ordered & unordered) ---
 								if (item.type === "list") {
 									const ListTag =
 										item.format === "ordered" ? "ol" : "ul";
@@ -383,8 +376,6 @@ const main_editor = data?.data.main_editor;
 										</ListTag>
 									);
 								}
-
-								// --- Fallback ---
 								return null;
 							})
 						}

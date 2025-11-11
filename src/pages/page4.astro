@@ -9,13 +9,9 @@ const { title, description, pubDate, heroImage } = Astro.props;
 const getData = async () => {
     try {
         const res = await fetch(`${BASE_URL}/api/page-4?populate=*`);
-        // const res = await fetch(
-        // 	"http://localhost:1337/api/home-page?populate=*",
-        // );
         const json = await res.json();
         return json;
     } catch (error) {
-        // console.error("Error fetching data:", error);
         return null;
     }
 };
@@ -42,141 +38,15 @@ const contentEditio2 = data?.data.bottom_intsall_editior;
             data-aos="fade-up"
         >
             <div class="container">
-                <div class="full-box" set:html={contentEditio} >
-                    <!-- <h4 class="content-heading">
-                        The Digital Deli: A Lost Resource and Its Creators
-                    </h4>
-                    <p>
-                        The Digitaldelitoo, also known as The Digital Deli, has
-                        been offline for several years—a significant loss for
-                        researchers and enthusiasts of old-time radio. Praised
-                        as the most detailed and accurate study of older radio
-                        programs, the site was the creation of Dennis Nyhagen
-                        and Dee Nyland.
-                    </p> -->
-
-                    
-                </div>
-                <!-- <div class="centers-all center-larger-img">
-                    <img
-                        src="image294.png"
-                        width="700"
-                        height="auto"
-                        alt="ashlyn-ciara"
-                    />
-                    <p>
-                        The most accurate and detailed information about
-                        hundreds of radio broadcasts!
-                    </p>
-                </div>
-                <div class="full-box">
-                    <h4 class="content-heading">About Dee Nyland</h4>
-                    <p>
-                        Dee Nyland is a 20-year veteran of the United States Air
-                        Force, combining both active duty and civil service.
-                        Originally from Tulsa, Oklahoma, she served in Texas,
-                        Illinois, Nebraska, and Georgia before undertaking tours
-                        in Japan in 1985 and Alaska in 1992.
-                    </p>
-                    <p>
-                        She discovered The Digital Deli in 2001 while searching
-                        for information on actor Vincent Price. Impressed by the
-                        historical value of the site, particularly its content
-                        related to World War II, she contacted the webmaster and
-                        became involved in the project. In a message to another
-                        researcher, she expressed her support for historical
-                        preservation efforts:
-                    </p>
-                    <p>
-                        "Dave, I admire you on your historical interest and
-                        willingness to pursue what may be impossible, and wish
-                        you much luck in your pursuit of this endeavor. And I
-                        hope your own site keeps going for future researchers.
-                        God Bless you, Dee"
-                    </p>
-                </div> -->
+                <div class="full-box" set:html={contentEditio} ></div>
             </div>
         </section>
 
         <section class="note-section" id="contact" data-aos="fade-up">
             <div class="container">
-
-                <div class="bootom-editor" set:html={contentEditio2}></div>
-                <!-- <h5 class="contact-heading">The Search for Dennis Nyhagen</h5>
-                <div class="contact-info">
-                    <p>
-                        The site's other creator, Dennis Nyhagen, has proven
-                        impossible to contact. Extensive searches using e-mail,
-                        U.S. mail, telephone, voting records, his last known
-                        attorney, and the internet have all been unsuccessful.
-                    </p>
-                    <p>
-                        Dee Nyland, who worked with him for years, provides the
-                        only available information about him. According to Dee,
-                        Dennis was a native of Los Angeles, an Air Force
-                        veteran, and had a sister, a daughter named Nancy, and a
-                        son whose name is unknown. She recalls that he launched
-                        the website around 2001 but that the two never met in
-                        person or even spoke on the phone.
-                    </p>
-                    <p>
-                        Dee noted that Dennis became difficult to work with and
-                        cut ties with the project around 2010, speculating that
-                        he may have been experiencing memory issues.
-                    </p>
-                    <p>
-                        <strong>In His Own Words: The Site's Philosophy</strong>
-                    </p>
-                    <p>
-                        Since Dennis Nyhagen cannot speak for himself, his own
-                        words from The Digital Deli best describe the site's
-                        mission and his commitment to transparency and
-                        collaborative research:
-                    </p>
-                    <p>
-                        “What you see here, is what you get. Complete
-                        transparency. We have no 'credentials' whatsoever--in
-                        any way, shape, or form--in the 'OTR community'--none.
-                        Nevertheless, here is how we did it--for better or
-                        worse. Here is how you can build on it
-                        yourselves--hopefully for the better. Here's the
-                        breadcrumbs--just follow the trail a bit further if you
-                        wish. No hobbled encodes. No misdirection. No posturing
-                        about our 'credentials.' No misrepresentations. No
-                        strings attached. We point you in the right direction
-                        and you are free to expand on it, extend it, use it
-                        however it best advances your efforts. We ask one thing
-                        and one thing only--if you employ what we publish,
-                        attribute it, before we cite you on it.”
-                    </p> -->
-                </div>
-                <!-- <div class="note-wrap">
-                    <div
-                        class="d-md-flex justify-content-between align-items-center mb-3"
-                    >
-                        <p>
-                            A copyright notice from the site further emphasized
-                            the importance of attribution:
-                        </p>
-                    </div>
-                    <p>
-                        “*All rights reserved by their respective sources.
-                        Article and log copyright 2009 The Digital Deli
-                        Online--all rights reserved. Any failure to attribute
-                        the results of this copyrighted work will be rigorously
-                        pursued.”
-                    </p>
-                    <p>
-                        In keeping with his wishes, the Digitaldelitoo website
-                        is acknowledged as the creation of Dennis Nyhagen and
-                        Dee Nyland.
-                    </p>
-
-                </div> -->
+                <div class="bootom-editor" set:html={contentEditio2}></div> </div>
             </div>
         </section>
-
-        <!-- Go To Top Button -->
         <a
             class="fixedButton"
             href="https://radiogoldin.library.umkc.edu/"

@@ -8,14 +8,9 @@ import {BASE_URL} from "../consts"
 const getData = async () => {
 	try {
 		const res = await fetch(`${BASE_URL}/api/page-1?populate=*`);
-		// const res = await fetch(
-		// 	"http://localhost:1337/api/page-1?populate=*",
-
-		// );
 		const json = await res.json();
 		return json;
 	} catch (error) {
-		// console.error("Error fetching data:", error);
 		return null;
 	}
 };

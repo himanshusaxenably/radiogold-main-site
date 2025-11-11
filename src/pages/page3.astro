@@ -8,13 +8,9 @@ import {BASE_URL} from "../consts"
 const getData = async () => {
 	try {
 		const res = await fetch(`${BASE_URL}/api/page-3?populate=*`);
-		// const res = await fetch(
-		// 	"http://localhost:1337/api/page-3?populate=*",
-		// );
 		const json = await res.json();
 		return json;
 	} catch (error) {
-		// console.error("Error fetching data:", error);
 		return null;
 	}
 };
@@ -39,8 +35,6 @@ console.log(data.data.main_image.formats.small.url)
                 </div>
                 <div class="heading-2 mt-5">
                     <h4 class="content-heading">{data.data.main_title}</h4>
-                    
-                        <!-- {data.data.about_editior} -->
 						{
 							data.data.editor_main.map((item, i) => {
 								const baseUrl =
@@ -252,7 +246,6 @@ console.log(data.data.main_image.formats.small.url)
                 </div>
             </div>
         </section>
-            <!-- Go To Top Button -->
      <a class="fixedButton" href="http://jerrysoldtimeradio.com/tdl-001/" target="_blank">Enter Jerry's Transcription Discs</a>
     <a href="/page4" id="myBtn" title="Scroll Up">Continue</a>
         <main>
