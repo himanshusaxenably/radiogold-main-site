@@ -34,7 +34,25 @@ console.log(Astro.props);
     href={new URL("rss.xml", Astro.site)}
 />
 <meta name="generator" content={Astro.generator} />
-<!-- Canonical URL -->
+
+<!-- Font preloads -->
+<!-- Preconnect (keep these two) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+<!-- Optimized font link -->
+<link
+  href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
+  rel="stylesheet"
+  media="print"
+  onload="this.media='all'"
+/>
+<noscript>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
+</noscript>
 <link rel="canonical" href={canonicalURL} />
 
 <!-- Primary Meta Tags -->
