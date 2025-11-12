@@ -1,11 +1,11 @@
 ---
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
-import "../../node_modules/bootstrap/dist/css/bootstrap.min.css"
+import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../styles/global.css";
 import type { ImageMetadata } from "astro";
 import FallbackImage from "../assets/blog-placeholder-1.jpg";
-import { SITE_TITLE } from "../consts";
+import { SITE_TITLE,SITE_DESCRIPTION} from "../consts";
 
 interface Props {
     title: string;
@@ -17,43 +17,98 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const { title, description, image = FallbackImage } = Astro.props;
 console.log(Astro.props);
-
 ---
 
 <!-- Global Metadata -->
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="title" content={title} />
-<meta name="description" content={description} />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="sitemap" href="/sitemap-index.xml" />
-<link
-    rel="alternate"
-    type="application/rss+xml"
-    title={SITE_TITLE}
-    href={new URL("rss.xml", Astro.site)}
-/>
-<meta name="generator" content={Astro.generator} />
+
+  <!-- Standard Meta Tags -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Title & Description -->
+  <title>{SITE_TITLE}</title>
+  <meta name="description" content={SITE_DESCRIPTION}>
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://radiogold.netlify.app/">
+
+  <!-- Open Graph / Social Meta -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content={SITE_TITLE}>
+  <meta property="og:description" content={SITE_DESCRIPTION}>
+  <meta property="og:url" content="https://radiogold.netlify.app/">
+  <meta property="og:site_name" content="RadioGoldInformation">
+  <meta property="og:image" content="https://radiogold.netlify.app/path-to-your-image.jpg">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content={SITE_TITLE}>
+  <meta name="twitter:description" content={SITE_DESCRIPTION}>
+  <meta name="twitter:image" content="https://radiogold.netlify.app/path-to-your-image.jpg">
+
+  <!-- Additional SEO Meta (optional) -->
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Himanshu saxena">
+  <meta name="theme-color" content="#000000">
+
+  <!-- Structured Data: Organization / WebSite -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://radiogold.netlify.app/#organization",
+        "name": "RadioGoldInformation",
+        "url": "https://radiogold.netlify.app/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://radiogold.netlify.app/path-to-logo.jpg"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "email": "info@Radiogoldinformation.com",
+          "contactType": "customer service",
+          "availableLanguage": "en"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://radiogold.netlify.app/#website",
+        "url": "https://radiogold.netlify.app/",
+        "name": "RadioGoldInformation",
+        "publisher": {
+          "@id": "https://radiogold.netlify.app/#organization"
+        },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://radiogold.netlify.app/?s={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    ]
+  }
+  </script>
 
 <!-- Font preloads -->
 <!-- Preconnect (keep these two) -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
 <!-- Optimized font link -->
 <link
-  href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
-  rel="stylesheet"
-  media="print"
-  onload="this.media='all'"
-/>
-<noscript>
-  <link
     href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
     rel="stylesheet"
-  />
+    media="print"
+    onload="this.media='all'"
+/>
+<noscript>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet"
+    />
 </noscript>
 <link rel="canonical" href={canonicalURL} />
 
 <!-- Primary Meta Tags -->
-<title>{title}</title>
+
